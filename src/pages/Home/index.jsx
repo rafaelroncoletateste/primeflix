@@ -7,6 +7,7 @@ import "./home.css";
 
 export default function Home() {
   const [filmes, setFilmes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const chaveAPI = import.meta.env.VITE_API_KEY;
 
@@ -21,10 +22,19 @@ export default function Home() {
       });
 
       setFilmes(response.data.results.slice(0, 10)); // Pega os dez primeiros filmes
+      setLoading(false);
     }
 
     loadMovies();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <h2>Carregando Filmes, por favor aguarde!</h2>
+      </div>
+    );
+  }
 
   return (
     <main className="container">
@@ -37,7 +47,9 @@ export default function Home() {
                 src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`}
                 alt={filme.title}
               />
-              <Link to={`/filme/${filme.id}`} target="_blank">Acessar</Link>
+              <Link to={`/filme/${filme.id}`} target="_blank">
+                Acessar
+              </Link>
             </article>
           );
         })}
