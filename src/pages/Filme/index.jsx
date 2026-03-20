@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import api from "../../services/api";
 
@@ -7,6 +7,8 @@ import "./filme.css";
 
 export default function Filme() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [filme, setFilme] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -25,11 +27,14 @@ export default function Filme() {
           setFilme(response.data);
           setLoading(false);
         })
-        .catch((err) => console.log(err));
+        .catch(() => {
+          navigate("/", { replace: true }); // Navega o usuário para a página inicial caso não encontre o filme
+          return;
+        });
     }
 
     loadMovie();
-  }, []);
+  }, [navigate, id]);
 
   if (loading) {
     return (
@@ -55,7 +60,13 @@ export default function Filme() {
       <div className="area-buttons">
         <button>Salvar</button>
         <button>
-          <a href="#">Trailer</a>
+          <a
+            href={`https://youtube.com/results?search_query=${filme.title} Trailer`}
+            target="_blank"
+            rel="external"
+          >
+            Trailer
+          </a>
         </button>
       </div>
     </div>
