@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 
 import api from "../../services/api";
 
+import "./filme.css";
+
 export default function Filme() {
   const { id } = useParams();
   const [filme, setFilme] = useState({});
@@ -49,6 +51,13 @@ export default function Filme() {
       <p>{filme.overview}</p>
 
       <strong>Avaliação: {filme.vote_average} / 10</strong>
+
+      <div className="area-buttons">
+        <button>Salvar</button>
+        <button>
+          <a href="#">Trailer</a>
+        </button>
+      </div>
     </div>
   );
 }
