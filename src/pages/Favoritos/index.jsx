@@ -10,8 +10,23 @@ export default function Favoritos() {
     // Usamos uma função dentro do useState; lemos o localStorage; converteu para JSON
   });
 
+  function handleDeleteMovie(id) {
+    let filtroFilmes = filmes.filter((item) => {
+      return item.id !== id;
+    }); // Devolve todos os filmes sem o ID especificado
+
+    setFilmes(filtroFilmes);
+    localStorage.setItem("@primeflix", JSON.stringify(filtroFilmes));
+
+    alert("Filme excluído com sucesso!");
+  }
+
   return (
     <div className="meus-filmes">
+      <h1>Meus Filmes</h1>
+
+      {filmes.length === 0 && <span>Você não possui filmes salvos!</span>}
+
       <ul>
         {filmes.map((filme) => {
           return (
@@ -20,7 +35,9 @@ export default function Favoritos() {
 
               <div>
                 <Link to={`/filme/${filme.id}`}>Ver Detalhes</Link>
-                <button>Excluir</button>
+                <button onClick={() => handleDeleteMovie(filme.id)}>
+                  Excluir
+                </button>
               </div>
             </li>
           );
