@@ -12,7 +12,7 @@
 }
 
 .meus-filmes span {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .meus-filmes ul {
@@ -38,4 +38,16 @@
   text-decoration: none;
   color: #116feb;
   margin-right: 15px;
+
+}
+
+.deletar-filme {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background-color: #116feb;
+  color: #ffffff;
+  font-weight: bold;
+  border: 0;
+  outline: none;
+  cursor: pointer;
 }
